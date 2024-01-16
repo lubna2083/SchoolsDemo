@@ -1,0 +1,49 @@
+<app-page-header *ngIf="!id" [title]="['cities'|translate]" [items]="[['city'|translate]]"
+  [active_item]="[['add'|translate]]"></app-page-header>
+<app-page-header *ngIf="id" [title]="['cities'|translate]" [items]="[['cities'|translate]]"
+  [active_item]="[['edit'|translate]]"></app-page-header>
+
+
+
+
+
+  <div class="card custom-card">
+    <div class="card-header bg-black">
+      <h5 class="main-content-label">{{'city' | translate}}</h5>
+    </div>
+    <div class="row row-sm card-body" [formGroup]="form">
+
+
+      <div class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'cityNameAr' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="cityNameAr" [(ngModel)]="city.cityNameAr"
+          class="form-control" required="" type="text"
+          onkeypress="return !(event.charCode >= 65 && event.charCode <= 90) && !(event.charCode >= 97 && event.charCode <= 122)"
+          >
+        <p class="m-0 text-danger"
+          *ngIf="form.get('cityNameAr')?.hasError('required')&& form.get('cityNameAr')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+      <div class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'cityNameEn' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="cityNameEn" [(ngModel)]="city.cityNameEn"
+          class="form-control" required="" type="text">
+        <p class="m-0 text-danger"
+          *ngIf="form.get('cityNameEn')?.hasError('required')&& form.get('cityNameEn')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+
+
+      <div class="col-12 mb-3 text-center">
+        <button class="btn bg-black text-white" (click)="addNewCity()" [disabled]="form.invalid || loading">{{'save' |
+          translate}}</button>
+        <button class="btn bg-D8D8D8 m-2" (click)="back()">{{'cancel' | translate}}</button>
+      </div>
+    </div>
+
+
+  </div>

@@ -1,0 +1,91 @@
+<div class="row row-sm noPrint">
+  <div class="col-md-12 col-lg-12 col-xl-12">
+    <div class="noPrint d-flex overflow-x-auto gap-1">
+      <div class="search-container w-50">
+        <mat-form-field appearance="outline" class="w-100">
+          <input (keyup)="filterSearchByKey($event.target.value)" matInput placeholder="{{'SEARCH' | translate}}"
+            autocomplete="off">
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-between noPrint">
+        <button *ngIf="createRoute!=null" class="btn ripple btn-add btn-icon px-3 mx-1" (click)="createRouter()">{{'add'|translate}}</button>
+        <button [matMenuTriggerFor]="menu" class="btn btn-custom btn-icon mx-1" type="button"><i
+            class="fa fa-solid fa-filter"></i></button>
+        <mat-menu #menu="matMenu">
+          <mat-selection-list class="d-flex flex-column w-100 p-2">
+              <mat-checkbox *ngFor="let item of filteredData" [selected]="item.checked" [(ngModel)]="item.checked" (click)="$event.stopPropagation()">
+                {{item.property | translate}}
+              </mat-checkbox>
+          </mat-selection-list>
+        </mat-menu>
+        <div class="tableTools noPrint" ngbDropdown container="body">
+          <button class="btn btn-custom btn-icon mx-1 noPrint" type="button" ngbDropdownToggle>
+            <i class="fa fa-solid fa-ellipsis-h"></i>
+          </button>
+          <ul class="dropdown-menu noPrint"  ngbDropdownMenu #myDropdown>
+            <li>
+
+            </li>
+            <li>
+              <button class="dropdown-item" type="button"
+                (click)=" close();exportToExcel();">
+                <i class="fa fa-solid fa-file-excel"></i>
+                {{'printExcel' | translate}}
+              </button>
+            </li>
+            <li>
+
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive border mb-2" style="border-radius: 5px;">
+      <table #TABLE matSort #pdfPrint id='pdfPrint' (matSortChange)="sortData($event)"
+        class="table table-hover mg-b-0 text-center">
+        <thead style="background:#13104fd6">
+          <tr>
+            <th [mat-sort-header]="item" *ngFor="let item of displayedColumns">{{item | translate}}</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="tableData.length != 0 && loading == false">
+          <tr *ngFor="let element of tableData;let i = index">
+            <td *ngFor="let item of displayedColumns">
+              <span *ngIf="item != 'actions' && item != 'userStatus'" [innerHTML]="element[item] | translate">{{element[item] |translate}}</span>
+              <div *ngIf="item == 'actions' && item != 'userStatus'"
+                data-html2canvas-ignore="true" class="action-btn">
+                <div ngbDropdown container="body" class="action-btn">
+                  <button class="btn btn-more btn-icon mx-1" type="button" ngbDropdownToggle>
+                    <i class="fa fa-solid fa-ellipsis-h"></i>
+                  </button>
+                  <ul ngbDropdownMenu class="dropdown-items">
+                    <li *ngFor="let item of actions" class="">
+                      <button (click)="actionClick(item,element)" class="btn dropdown-item">
+                        <span *ngIf="item.action == 1" class=""><i class="fa fa-pencil-square-o"></i> {{'edit' | translate}}</span>
+                        <span *ngIf="item.action == 0" class=""><i class="fa fa-solid fa-trash"></i> {{'delete' | translate}}</span>
+                        <span *ngIf="item.action == 3" ><i class="fa fa-pencil-square-o"></i> {{'editt' | translate}}</span>
+
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <span *ngIf="item != 'actions' && item == 'userStatus' && item != 'status'" class="badge" [ngClass]="{'text-black': element[item] ,
+              'bg-success': element[item] == true,
+
+              'bg-danger': element[item] == false}">{{ element[item] | ustatus|translate }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ngb-pagination [collectionSize]="collectionSize" page="1" pageSize="10" [maxSize]="5" (pageChange)="page($event)">
+    </ngb-pagination>
+  </div>
+  <div  class="d-flex flex-column justify-content-center align-items-center mt-4 noPrint">
+    <h1   *ngIf="tableData.length == 0  "class="mb-4">{{'thereIsNoData' | translate}}</h1>
+    <button *ngIf="tableData.length == 0 && loading == false && (createRoute != null)" class="btn btn-primary" style="padding: 0px 40px;background: black;" (click)="createRouter()"><strong>{{'add' | translate}}</strong></button>
+  </div>
+</div>
+<!-- <app-shared-print-report [isTab]="isEditTab" [displayedColumns]="getDisplayedColumnsForPrint()" [tableData]="tableData" [title]="'SEARCH'"></app-shared-print-report> -->

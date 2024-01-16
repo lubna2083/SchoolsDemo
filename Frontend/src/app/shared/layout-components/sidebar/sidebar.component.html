@@ -1,0 +1,136 @@
+<!--APP-SIDEBAR-->
+<div class="app-sidebar__overlay" (click)="sidebarClose()"></div>
+<!-- Sidemenu -->
+<div class="d-flex flex-row noPrint sside" style="width: 500px;">
+  <div class="sticky" [ngClass]="{ 'sticky-pin': scrolled }">
+    <div id="sidemenu" class="main-menu main-sidebar main-sidebar-sticky side-menu" style="z-index:2;
+    max-width: 239px;">
+      <perfect-scrollbar >
+        <div class="main-sidebar-header main-container-1">
+            <div class="sidemenu-logo" style="padding: 2px 0px;">
+              <!-- <a class="main-logo py-1" routerLink="/dashboard/dashboard01"> -->
+                <a class="main-logo py-1"  class="btn">
+                  <img src="./assets/img/brand/logo7.png" class="header-brand-img desktop-logo w-80" alt="education Logo">
+                  <img src="./assets/img/brand/icon7.png" class="main-logo mobile-dark header-brand-img icon-logo" width="38px"
+                  alt="Education Logo">
+                </a>
+            </div>
+
+          <div class="user text-center">
+            <div class="emp-photo">
+              <img src="https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg" alt="Employee Photo" width="65px">
+            </div>
+            <div class="emp-info">
+              <p class="h5 fw-bold mt-3">{{'user' |translate}}</p>
+
+
+            </div>
+          </div>
+          <div class="main-sidebar-body main-body-1 d-flex flex-wrap align-content-between">
+            <ul class="menu-nav nav mt-2">
+              <!-- 1st Level Menu -->
+              <li class="mb-1" *ngFor="let menuItem of menuItems">
+
+                <a class="nav-link" [routerLink]="!menuItem.type ? null : [menuItem.path]"
+                  *ngIf="menuItem.type === 'link' "  >
+                  <span class="shape1"></span>
+                  <span class="shape2"></span>
+                  <span><i class="fa fa-{{menuItem.icon}}"></i></span>
+                  <span class="sidemenu-label">{{menuItem.title | translate}}</span>
+                </a>
+                <!-- empty path -->
+                <a class="nav-link " href="javascript:;" *ngIf="menuItem.type === 'empty'"
+                  (click)="toggleNavActive(menuItem)">
+                  <span class="shape1"></span>
+                  <span class="shape2"></span>
+
+                  <span class="sidemenu--label" [ngStyle]="{'font-weight': menuItem.active ? 'bold' : 'normal'}">{{menuItem.title | translate}}</span>
+                </a>
+
+                <!-- has-Sub -->
+                <a (click)="openNav(menuItem)" class="nav-link with-sub" [routerLink]="menuItem.type ? null: [menuItem.path]"
+                  *ngIf="menuItem.type === 'sub'" >
+                  <span class="shape1"></span>
+                  <span *ngIf="menuItem.active" class="shape2" [ngStyle]="{'border-radius': translate.currentLang == 'ar' ? '5px 1px 1px 5px' : '1px 5px 5px 1px'}"></span>
+                  <span *ngIf="menuItem.active" style="width: 5px;"></span>
+                  <span><i class="fa fa-{{menuItem.icon}}"></i></span>
+                  <span class="sidemenu-label" [ngStyle]="{'font-weight': menuItem.active ? 'bold' : 'normal'}">{{menuItem.title | translate}}</span>
+                  <span class="badge bg-{{menuItem.badgeClass}} side-badge"
+                    *ngIf="menuItem.badgeClass && menuItem.badgeValue">
+                    {{menuItem.badgeValue}}
+                  </span>
+                  <i class="angle fe fe-chevron-right" [ngClass]="{ 'd-none': menuItem.badgeClass}"></i>
+
+                </a>
+
+                <!-- 2nd Level menu -->
+                <ul class="nav-sub" *ngIf="menuItem.children" >
+                  <li  class="nav-sub-item" *ngFor="let childrenItem of menuItem.children"
+                    >
+                    <a class="nav-sub-link sub-with-sub" [routerLink]="childrenItem.type ? null : [childrenItem.path]"
+                      *ngIf=" childrenItem.type === 'sub' " (click)="toggleNavActive(childrenItem)">
+                      <span class="sub-side-menu__label"> {{childrenItem.title | translate}}ttttt</span>
+                      <i class="angle fe fe-chevron-right"></i>
+
+                    </a>
+                    <a class="nav-sub-link sub-with-sub tx-lg-bold"
+                      *ngIf=" childrenItem.type === 'title' ">
+                      <span class="sub-side-menu__label"> {{childrenItem.title | translate}}</span>
+                      <i class="angle fe fe-chevron-right"></i>
+
+                    </a>
+
+                    <!-- 3rd Level menu -->
+                    <ul class="sub-nav-sub" *ngIf="childrenItem.children"
+                      >
+                      <li class="nav-sub-item" *ngFor="let childrenSubItem of childrenItem.children"
+                        >
+
+                        <a class="sub-side-menu__itemnav-sub-link sub-with-sub"
+                          [routerLink]="childrenSubItem.type ? null : [childrenSubItem.path]"
+                          *ngIf="childrenSubItem.type === 'sub' " (click)="toggleNavActive(childrenSubItem)">
+                          <span class="sub-side-menu__label2"> {{childrenItem.title | translate}}
+                          </span>
+                          <i class="angle fe fe-chevron-right"></i>
+                        </a>
+
+                        <!--4th level -->
+
+                        <!-- with AUTHENTICATION -->
+                        <!-- <ul class="sub-nav-sub" *ngIf="childrenSubItem.children"
+                          >
+                          <li class="nav-sub-item" *ngFor="let childrenSubItem1 of childrenSubItem.children"
+                            >
+                            <a *ngIf="childrenSubItem1.type === 'link' " class="nav-sub-link sub-with-sub" routerLinkActive="active"
+                              [routerLink]="!childrenSubItem1.type ? null : [childrenSubItem1.path]"
+                              >
+                              {{childrenItem.title | translate}}</a>
+                          </li>
+                        </ul> -->
+                        <!-- <ul class="sub-nav-sub" *ngIf="childrenSubItem.children"
+                        [ngClass]="{'open': childrenSubItem.active}">
+                        <li class="nav-sub-item" *ngFor="let childrenSubItem1 of childrenSubItem.children"
+                          [ngClass]="{'show': childrenSubItem1.active}">
+                          <a  class="nav-sub-link sub-with-sub" routerLinkActive="active"
+                            [routerLink]="!childrenSubItem1.type ? null : [childrenSubItem1.path]"
+                            *ngIf="childrenSubItem1.type === 'link'">
+                            {{childrenItem.title | translate}}</a>
+                        </li>
+                      </ul> -->
+
+
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+</div>
+<!-- End Sidemenu -->

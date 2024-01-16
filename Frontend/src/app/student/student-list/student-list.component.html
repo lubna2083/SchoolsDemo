@@ -1,0 +1,4 @@
+<app-page-header [title]="['students'|translate]" [items]="[['students'|translate]]" [active_item]="[['view'|translate]]"></app-page-header>
+
+<app-custom-mat-table  [createRoute]="'/student/add'"  [displayedColumns]="displayedColumns" [getData]="getAllStudents"></app-custom-mat-table>
+

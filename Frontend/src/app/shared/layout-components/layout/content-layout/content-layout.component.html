@@ -1,0 +1,139 @@
+<div class="horizontalMenucontainer">
+    <!-- <app-switcher></app-switcher> -->
+    <div class="page">
+            <!-- // header -->
+            <app-header></app-header>
+            <!-- //sidebar -->
+
+            <app-sidebar appHoverEffectSidebar></app-sidebar>
+
+            <!-- <app-sidebar-store *ngIf="dash=='store'" appHoverEffectSidebar></app-sidebar-store> -->
+        <div class="main-content side-content pt-0">
+            <div class="main-container container-fluid" >
+                <div  class="inner-body" >
+                    <!-- // contetnt  -->
+                    <router-outlet></router-outlet>
+
+                </div>
+
+                <div id="mySidenav" class="sidenav d-flex flex-wrap align-content-between">
+                    <a href="javascript:void(0)" class="closebtn">{{getMenuTitle | translate}}</a>
+                        <ul class="menu-nav nav w-100">
+                          <!-- 1st Level Menu -->
+                          <li *ngFor="let menuItem of menuItems"
+                            >
+                            <!-- has-Link -->
+                            <!-- <span class="nav-label" *ngIf="menuItem.headTitle">
+                                {{menuItem.headTitle}}
+                              </span> -->
+
+                            <a class="nav-link" [routerLink]="!menuItem.type ? null : [menuItem.path]"
+                              *ngIf="menuItem.type === 'link' " routerLinkActive="active" >
+                              <span class="shape1"></span>
+                              <span class="shape2"></span>
+                              <span class="menu-icon sidemenu-icon">
+                                <span class="fe fe-{{menuItem.icon}}"></span>
+                              </span>
+                              <span>{{menuItem.title | translate}}</span>
+                            </a>
+                            <!-- empty path -->
+                            <a class="nav-link" href="javascript:;" *ngIf="menuItem.type === 'empty'"
+                              (click)="toggleNavActive(menuItem)">
+                              <span class="shape1"></span>
+                              <span class="shape2"></span>
+                              <span class="menu-icon sidemenu-icon">
+                                <i class="fe fe-{{menuItem.icon}} "></i>
+                              </span>
+                              <span class="sidemenu--label">{{menuItem.title | translate}}</span>
+                            </a>
+
+                            <!-- has-Sub -->
+                            <a class="nav-link with-sub" [routerLink]="menuItem.type ? null: [menuItem.path]"
+                              *ngIf="menuItem.type === 'sub'" (click)="toggleNavActive(menuItem)"
+                              [ngClass]="{'active': menuItem.active}">
+                              <span class="shape1"></span>
+                              <span class="shape2"></span>
+                              <span class="menu-icon sidemenu-icon ">
+                                <!-- <span class="fe fe-{{me  nuItem.icon}}"></span> -->
+                              </span>
+                              <span class="sidemenu-label">{{menuItem.title | translate}}</span>
+                              <span class="badge bg-{{menuItem.badgeClass}} side-badge"
+                                *ngIf="menuItem.badgeClass && menuItem.badgeValue">
+                                {{menuItem.badgeValue}}
+                              </span>
+                              <i class="angle fe fe-chevron-right" [ngClass]="{ 'd-none': menuItem.badgeClass}"></i>
+
+                            </a>
+
+                            <!-- 2nd Level menu -->
+                            <ul class="nav-sub" *ngIf="menuItem.children" [ngClass]="{'open': menuItem.active}">
+                              <li class="nav-sub-item" *ngFor="let childrenItem of menuItem.children"
+                                [ngClass]="{'show': childrenItem.active, 'active': childrenItem.active}">
+
+                                <!-- link -->
+                                <a class="nav-sub-link" routerLinkActive="active"
+                                  [routerLink]="!childrenItem.type ? null : [childrenItem.path] "
+                                  *ngIf="childrenItem.type === 'link' " (click)="toggleNavActive(childrenItem)">
+                                  {{childrenItem.title | translate}}
+                                </a>
+                                <!-- empty -->
+                                <a class="nav-sub-link" routerLinkActive="active" href="javascript:;"
+                                  *ngIf="childrenItem.type === 'empty' " (click)="toggleNavActive(childrenItem)">
+                                  {{childrenItem.title | translate}}
+                                </a>
+                                <!-- sub -->
+                                <a class="nav-sub-link sub-with-sub" [routerLink]="childrenItem.type ? null : [childrenItem.path]"
+                                  *ngIf="childrenItem.type === 'sub' " (click)="toggleNavActive(childrenItem)">
+                                  <span class="sub-side-menu__label"> {{childrenItem.title | translate}}</span>
+                                  <i class="angle fe fe-chevron-right"></i>
+                                </a>
+
+                                <!-- 3rd Level menu -->
+                                <ul class="sub-nav-sub" *ngIf="childrenItem.children"
+                                  [ngClass]="{'open': childrenItem.active}">
+                                  <li class="nav-sub-item" *ngFor="let childrenSubItem of childrenItem.children"
+                                    [ngClass]="{'show': childrenSubItem.active}">
+                                    <!-- link -->
+                                    <a class="nav-sub-link" routerLinkActive="active"
+                                      [routerLink]="!childrenSubItem.type ? null : [childrenSubItem.path]"
+                                      *ngIf="childrenSubItem.type === 'link'" (click)="toggleNavActive(childrenSubItem)">
+                                      {{childrenItem.title | translate}}
+                                    </a>
+                                    <!-- empty -->
+                                    <a class="nav-sub-link" href="javascript:;" *ngIf="childrenSubItem.type === 'empty'"
+                                      (click)="toggleNavActive(childrenSubItem)">
+                                      {{childrenItem.title | translate}}
+                                    </a>
+                                    <!-- sub -->
+                                    <a class="sub-side-menu__itemnav-sub-link sub-with-sub"
+                                      [routerLink]="childrenSubItem.type ? null : [childrenSubItem.path]"
+                                      *ngIf="childrenSubItem.type === 'sub' " (click)="toggleNavActive(childrenSubItem)">
+                                      <span class="sub-side-menu__label2"> {{childrenItem.title | translate}}
+                                      </span>
+                                      <i class="angle fe fe-chevron-right"></i>
+                                    </a>
+
+                                    <!--4th level -->
+                                    <ul class="sub-nav-sub" *ngIf="childrenSubItem.children"
+                                      [ngClass]="{'open': childrenSubItem.active}">
+                                      <li class="nav-sub-item" *ngFor="let childrenSubItem1 of childrenSubItem.children"
+                                        [ngClass]="{'show': childrenSubItem1.active}">
+                                        <a class="nav-sub-link sub-with-sub" routerLinkActive="active"
+                                          [routerLink]="!childrenSubItem1.type ? null : [childrenSubItem1.path]"
+                                          *ngIf="childrenSubItem1.type === 'link'">
+                                          {{childrenItem.title | translate}}</a>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <!-- <app-right-sidebar></app-right-sidebar> -->
+        <app-footer [hidden]="router.url == '/'"></app-footer>
+    </div>
+</div>

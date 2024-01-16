@@ -1,0 +1,87 @@
+<app-page-header *ngIf="!gradeId" [title]="['cities'|translate]" [items]="[['grade'|translate]]"
+  [active_item]="[['add'|translate]]"></app-page-header>
+<app-page-header *ngIf="gradeId" [title]="['cities'|translate]" [items]="[['cities'|translate]]"
+  [active_item]="[['edit'|translate]]"></app-page-header>
+
+
+
+
+
+  <div class="card custom-card">
+    <div class="card-header bg-black">
+      <h5 class="main-content-label">{{'grade' | translate}}</h5>
+    </div>
+    <div class="row row-sm card-body" [formGroup]="form">
+
+      <div  class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'cityName' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <ng-select  id="cityId" (change)="getSchoolList($event)" [(ngModel)]="cityId">
+          <ng-option *ngFor="let item of cityList" [value]="item.cityId">
+            {{ this.translate.currentLang === 'ar' ? item.cityNameAr : item.cityNameEn  }}
+
+        </ng-option>
+        </ng-select>
+          <p class="m-0 text-danger"
+          *ngIf="form.get('cityId')?.hasError('required')&& form.get('cityId')?.touched">{{'fieldRequired' |
+          translate}}</p>
+
+      </div>
+      <div  class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'schoolName' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <ng-select  id="schoolId" [(ngModel)]="grade.school.schoolId" [ngModelOptions]="{standalone: true}">
+          <ng-option *ngFor="let item of schoolList" [value]="item.schoolId">
+            {{ this.translate.currentLang === 'ar' ? item.schoolNameAr : item.schoolNameEn  }}
+
+        </ng-option>
+        </ng-select>
+          <p class="m-0 text-danger"
+          *ngIf="form.get('schoolId')?.hasError('required')&& form.get('schoolId')?.touched">{{'fieldRequired' |
+          translate}}</p>
+
+      </div>
+      <div class="col-sm-4 mb-2">
+        <label class="tx-semibold">{{'gradeNameAr' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="gradeNameAr" [(ngModel)]="grade.gradeNameAr"
+          class="form-control" required="" type="text"
+          onkeypress="return !(event.charCode >= 65 && event.charCode <= 90) && !(event.charCode >= 97 && event.charCode <= 122)"
+          >
+        <p class="m-0 text-danger"
+          *ngIf="form.get('gradeNameAr')?.hasError('required')&& form.get('gradeNameAr')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+      <div class="col-sm-4 mb-2">
+        <label class="tx-semibold">{{'gradeNameEn' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="gradeNameEn" [(ngModel)]="grade.gradeNameEn"
+          class="form-control" required="" type="text">
+        <p class="m-0 text-danger"
+          *ngIf="form.get('gradeNameEn')?.hasError('required')&& form.get('gradeNameEn')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+      <div class="col-sm-4 mb-2">
+        <label class="tx-semibold">{{'maxAllowableLimit' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="maxAllowableLimit" [(ngModel)]="grade.maxAllowableLimit"
+          class="form-control" required="" type="number" min="1">
+        <p class="m-0 text-danger"
+          *ngIf="form.get('maxAllowableLimit')?.hasError('required')&& form.get('maxAllowableLimit')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+
+
+      <div class="col-12 mb-3 text-center">
+        <button class="btn bg-black text-white" (click)="addNewGrade()" [disabled]="form.invalid || loading">{{'save' |
+          translate}}</button>
+        <button class="btn bg-D8D8D8 m-2" (click)="back()">{{'cancel' | translate}}</button>
+      </div>
+    </div>
+
+
+  </div>
+

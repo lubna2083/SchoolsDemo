@@ -1,0 +1,62 @@
+<app-page-header *ngIf="!schoolId" [title]="['schools'|translate]" [items]="[['school'|translate]]"
+  [active_item]="[['add'|translate]]"></app-page-header>
+<app-page-header *ngIf="schoolId" [title]="['cities'|translate]" [items]="[['cities'|translate]]"
+  [active_item]="[['edit'|translate]]"></app-page-header>
+
+
+
+
+
+  <div class="card custom-card">
+    <div class="card-header bg-black">
+      <h5 class="main-content-label">{{'school' | translate}}</h5>
+    </div>
+    <div class="row row-sm card-body" [formGroup]="form">
+
+      <div  class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'cityName' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <ng-select  id="cityId" [(ngModel)]="school.city.cityId" [ngModelOptions]="{standalone: true}">
+          <ng-option *ngFor="let item of cityList" [value]="item.cityId">
+            {{ this.translate.currentLang === 'ar' ? item.cityNameAr : item.cityNameEn  }}
+
+        </ng-option>
+        </ng-select>
+          <p class="m-0 text-danger"
+          *ngIf="form.get('cityId')?.hasError('required')&& form.get('cityId')?.touched">{{'fieldRequired' |
+          translate}}</p>
+
+      </div>
+      <div class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'schoolNameAr' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="schoolNameAr" [(ngModel)]="school.schoolNameAr"
+          class="form-control" required="" type="text"
+          onkeypress="return !(event.charCode >= 65 && event.charCode <= 90) && !(event.charCode >= 97 && event.charCode <= 122)"
+          >
+        <p class="m-0 text-danger"
+          *ngIf="form.get('schoolNameAr')?.hasError('required')&& form.get('schoolNameAr')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+      <div class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'schoolNameEn' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <input formControlName="schoolNameEn" [(ngModel)]="school.schoolNameEn"
+          class="form-control" required="" type="text">
+        <p class="m-0 text-danger"
+          *ngIf="form.get('schoolNameEn')?.hasError('required')&& form.get('schoolNameEn')?.touched">
+          {{'fieldRequired' | translate}}</p>
+
+      </div>
+
+
+      <div class="col-12 mb-3 text-center">
+        <button class="btn bg-black text-white" (click)="addNewSchool()" [disabled]="form.invalid || loading">{{'save' |
+          translate}}</button>
+        <button class="btn bg-D8D8D8 m-2" (click)="back()">{{'cancel' | translate}}</button>
+      </div>
+    </div>
+
+
+  </div>

@@ -1,0 +1,227 @@
+::ng-deep{
+    body:not(.horizontalmenu) .main-content {
+        margin-top: 64px;
+    }
+    .inner-body{
+        min-height: calc(100vh - 70px);
+    }
+}
+
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #fff; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    padding-bottom: 50px;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+    font-weight: 500;
+    font-size: 14px;
+    color: #616366;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: black;
+    font-weight: bold;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    // right: 0px;
+    font-size: 18px;
+    margin-left: 50px;
+    font-weight: bold;
+  }
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    // .sidenav {padding-top: 15px;}
+    // .sidenav a {font-size: 18px;}
+  }
+
+  .sub-nav-sub.open{
+    display: block !important;
+}
+
+app-sidebar perfect-scrollbar{
+    position: static !important;
+}
+.main-sidebar-body{
+    height: calc(100vh - 250px);
+    padding: 0;
+
+    li.active .sidemenu-icon{
+        line-height: 0 !important;
+    }
+}
+
+@media (min-width: 700px){
+    .horizontalmenu .hor-menu li.nav-item .nav-link {
+        padding-right: 6px;
+        padding-left: 6px;
+    }
+}
+.main-sidemenu .side-menu {
+    transition: margin-left 320ms ease, width 320ms ease;
+}
+
+@media (min-width: 700px){
+
+    .horizontalmenu-hover .nav-link.with-sub,
+    .horizontalmenu-hover .nav-sub-link.sub-with-sub
+    {
+        pointer-events: none;
+    }
+
+    .ltr{
+        .slide-leftRTL{
+            display: none !important;
+        }
+        .slide-rightRTL{
+            display: none !important;
+        }
+        .slide-left{
+            display: block;
+        }
+        .slide-right{
+            display: block;
+        }
+    }
+
+    .rtl{
+        .slide-leftRTL{
+            display: block;
+            right: 20px;
+            transform: rotate(180deg);
+        }
+        .slide-rightRTL{
+            display: block;
+            left: 20px;
+            transform: rotate(180deg);
+        }
+        .slide-left{
+            display: none !important;
+        }
+        .slide-right{
+            display: none !important;
+        }
+    }
+
+    .horizontalmenu .main-sidemenu .slide-leftRTL, .horizontalmenu .main-sidemenu .slide-rightRTL {
+        position: absolute;
+        top: 0px;
+        padding: 17px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        cursor: pointer;
+    }
+    .horizontalmenu .hor-menu li.nav-item .nav-link{
+        min-width: max-content;
+    }
+}
+body:not(.horizontalmenu){
+    #slide-right{
+        display: none;
+    }
+}
+// ..........
+body.rtl .margin-img img{
+    margin-right: 20px;
+}
+body.ltr .margin-img img{
+    margin-left: 20px;
+}
+.logout {
+    padding: 5px 10px;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid #e8e8f7;
+}
+.logout i{
+    padding: 2px;
+    background-color: #3a3a3a;
+    color: #fff;
+
+}
+
+.logout .btn{
+    padding: 0px;
+}
+
+.user{
+    margin: 100px 0 0;
+    padding: 0 5px 15px;
+    border-bottom: 1px solid #e8e8f7;
+}
+.user .emp-info{
+    transition: margin-right 0.3s ease;
+}
+
+.main-sidebar-hide .emp-info,
+.hover-submenu.main-sidebar-hide .side-menu .main-sidebar-body .emp-info,
+.hover-submenu1.main-sidebar-hide .emp-info {
+    display: none;
+}
+
+.main-sidebar-hide .main-sidebar-body,
+.hover-submenu.main-sidebar-hide .side-menu .main-sidebar-body,
+.hover-submenu1.main-sidebar-hide .main-sidebar-body {
+    height: calc(100vh - 150px);
+}
+
+
+
+.main-sidebar-open.main-sidebar-hide .emp-info,
+.closed-leftmenu.main-sidebar-hide .emp-info,
+.closed-leftmenu.main-sidebar-open.main-sidebar-hide .emp-info,
+.icontext-menu.main-sidebar-hide .emp-info,
+.icontext-menu.main-sidebar-open.main-sidebar-hide .emp-info,
+.hover-submenu.main-sidebar-hide .emp-info,
+.hover-submenu.main-sidebar-open.main-sidebar-hide .emp-info,
+.hover-submenu1.main-sidebar-open.main-sidebar-hide .emp-info,
+.hover-submenu1.main-sidebar-hide.main-sidebar-open .submenu-style .nav-sub-link.sub-with-sub .emp-info {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .user{
+        margin-top: calc(100px - 65px);
+    }
+}
+
+.nav {
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+
+
+
