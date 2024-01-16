@@ -7,3 +7,4 @@ npm install --force
 
 # Start the application
 ng serve or npm run serve
+open your browser on http://localhost:4200/
