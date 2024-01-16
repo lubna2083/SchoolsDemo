@@ -1,0 +1,4 @@
+<app-page-header [title]="['grades'|translate]" [items]="[['grades'|translate]]" [active_item]="[['view'|translate]]"></app-page-header>
+
+<app-custom-mat-table  [createRoute]="'/grade/add'" [actions]="actions" [displayedColumns]="displayedColumns" [getData]="getAllGrades"></app-custom-mat-table>
+

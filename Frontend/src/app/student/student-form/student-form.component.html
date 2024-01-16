@@ -1,0 +1,109 @@
+<app-page-header *ngIf="!studentId" [title]="['students'|translate]" [items]="[['student'|translate]]"
+  [active_item]="[['add'|translate]]"></app-page-header>
+<app-page-header *ngIf="studentId" [title]="['students'|translate]" [items]="[['student'|translate]]"
+  [active_item]="[['edit'|translate]]"></app-page-header>
+
+  <div class="card custom-card">
+    <div class="card-header bg-black">
+      <h5 class="main-content-label">{{'grade' | translate}}</h5>
+    </div>
+    <div class="row row-sm card-body" [formGroup]="form">
+<!-- City Dropdown -->
+      <div  class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'cityName' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <ng-select  id="cityId" (change)="getSchoolList($event)" [(ngModel)]="cityList.cityId" [ngModelOptions]="{standalone: true}">
+          <ng-option *ngFor="let item of cityList" [value]="item.cityId">
+            {{ this.translate.currentLang === 'ar' ? item.cityNameAr : item.cityNameEn  }}
+
+        </ng-option>
+        </ng-select>
+          <p class="m-0 text-danger"
+          *ngIf="form.get('cityId')?.hasError('required')&& form.get('cityId')?.touched">{{'fieldRequired' |
+          translate}}</p>
+
+      </div>
+      <!-- School Dropdown -->
+      <div  class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'schoolName' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <ng-select  id="schoolId" [(ngModel)]="schoolId"
+        (change)="getGradeList($event)"
+         [ngModelOptions]="{standalone: true}">
+          <ng-option *ngFor="let item of schoolList" [value]="item.schoolId">
+            {{ this.translate.currentLang === 'ar' ? item.schoolNameAr : item.schoolNameEn  }}
+
+        </ng-option>
+        </ng-select>
+          <p class="m-0 text-danger"
+          *ngIf="form.get('schoolId')?.hasError('required')&& form.get('schoolId')?.touched">{{'fieldRequired' |
+          translate}}</p>
+
+      </div>
+<!-- Grade Dropdown -->
+      <div  class="col-sm-6 mb-2">
+        <label class="tx-semibold">{{'gradeName' | translate}}<span
+            class="text-danger tx-17 tx-bold mx-1">*</span></label>
+        <ng-select formControlName="gradeId" [(ngModel)]="grade" (change)="getRows();">
+          <ng-option *ngFor="let item of gradeList" [value]="item">
+            {{ this.translate.currentLang === 'ar' ? item.gradeNameAr : item.gradeNameEn  }}
+
+        </ng-option>
+        </ng-select>
+          <p class="m-0 text-danger"
+          *ngIf="form.get('gradeId')?.hasError('required')&& form.get('gradeId')?.touched">{{'fieldRequired' |
+          translate}}</p>
+
+
+      </div>
+<!-- Save Button -->
+      <div class="col-12 mb-3 text-center">
+        <button class="btn bg-black text-white" (click)="addNewStudent()" [disabled]="form.invalid || loading">{{'save' |
+          translate}}</button>
+        <button class="btn bg-D8D8D8 m-2" (click)="back()">{{'cancel' | translate}}</button>
+      </div>
+    </div>
+<!-- if capacity full view warning  -->
+    <p *ngIf="capacity==0">
+      <ngb-alert type="danger" [dismissible]="false">
+        <strong>{{"gradeFull" | translate}}</strong></ngb-alert>
+    </p>
+  </div>
+
+<!-- Student Table  -->
+  <div class="table-responsive mt-1"  *ngIf="capacity!=0" >
+    <table class="table border">
+
+      <tr class="text-center  li">
+        <th>#</th>
+        <th>{{'studentNameAr' | translate}}</th>
+        <th>{{'studentNameEn' | translate}}</th>
+        <th>{{'address' | translate}}</th>
+
+      </tr>
+      <tbody class="table-group-divider text-center">
+        <tr *ngFor=" let item of students; let i= index;">
+          <td class="text-center">{{i+1}}</td>
+          <td class="text-center">
+            <input type="text" class="form-control  m-auto " [(ngModel)]="item.studentNameAr"
+            onkeypress="return !(event.charCode >= 65 && event.charCode <= 90) && !(event.charCode >= 97 && event.charCode <= 122)" />
+          </td>
+          <td class="text-center">
+            <input type="text" class="form-control  m-auto " [(ngModel)]="item.studentNameEn"
+             onkeypress="return (event.charCode === 32) || (event.charCode >= 65 && event.charCode <= 90) ||
+            (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)"/>
+          </td>
+          <td class="text-center">
+            <input type="text" class="form-control  m-auto " [(ngModel)]="item.address"
+             onkeypress="return (event.charCode === 32) || (event.charCode >= 65 && event.charCode <= 90) ||
+            (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57)"/>
+          </td>
+
+        </tr>
+      </tbody>
+
+
+    </table>
+
+  </div>
+

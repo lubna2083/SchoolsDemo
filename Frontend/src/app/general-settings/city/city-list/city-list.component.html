@@ -1,0 +1,4 @@
+<app-page-header [title]="['cities'|translate]" [items]="[['city'|translate]]" [active_item]="[['view'|translate]]"></app-page-header>
+
+<app-custom-mat-table  [createRoute]="'/city/add'" [actions]="actions" [displayedColumns]="displayedColumns" [getData]="getAllCities"></app-custom-mat-table>
+

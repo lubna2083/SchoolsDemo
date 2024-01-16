@@ -1,0 +1,200 @@
+.sub-nav-sub.open{
+    display: block !important;
+}
+
+app-sidebar perfect-scrollbar{
+    position: static !important;
+}
+.main-sidebar-body{
+    height: 90vh;
+    padding: 0;
+
+    li.active .sidemenu-icon{
+        line-height: 0 !important;
+    }
+}
+
+@media (min-width: 700px){
+    .horizontalmenu .hor-menu li.nav-item .nav-link {
+        padding-right: 6px;
+        padding-left: 6px;
+    }
+}
+.main-sidemenu .side-menu {
+    transition: margin-left 320ms ease, width 320ms ease;
+}
+
+@media (min-width: 700px){
+
+    .horizontalmenu-hover .nav-link.with-sub,
+    .horizontalmenu-hover .nav-sub-link.sub-with-sub
+    {
+        pointer-events: none;
+    }
+
+    .ltr{
+        .slide-leftRTL{
+            display: none !important;
+        }
+        .slide-rightRTL{
+            display: none !important;
+        }
+        .slide-left{
+            display: block;
+        }
+        .slide-right{
+            display: block;
+        }
+    }
+
+    .rtl{
+        .slide-leftRTL{
+            display: block;
+            right: 20px;
+            transform: rotate(180deg);
+        }
+        .slide-rightRTL{
+            display: block;
+            left: 20px;
+            transform: rotate(180deg);
+        }
+        .slide-left{
+            display: none !important;
+        }
+        .slide-right{
+            display: none !important;
+        }
+    }
+
+    .horizontalmenu .main-sidemenu .slide-leftRTL, .horizontalmenu .main-sidemenu .slide-rightRTL {
+        position: absolute;
+        top: 1px;
+        padding: 17px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+        cursor: pointer;
+    }
+    .horizontalmenu .hor-menu li.nav-item .nav-link{
+        min-width: max-content;
+    }
+}
+body:not(.horizontalmenu){
+    #slide-right{
+        display: none;
+    }
+}
+// ..........
+body.rtl .margin-img img{
+    margin-right: 20px;
+}
+body.ltr .margin-img img{
+    margin-left: 20px;
+}
+.logout {
+    padding: 5px 10px;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid #e8e8f7;
+}
+.logout i{
+    padding: 2px;
+    background-color: #3a3a3a;
+    color: #fff;
+
+}
+
+.logout .btn{
+    padding: 0px;
+}
+
+
+.main-sidebar-body {
+    margin-top: 10vh !important;
+}
+.main-sidebar-hide .emp-info,
+.hover-submenu.main-sidebar-hide .side-menu .main-sidebar-body .emp-info,
+.hover-submenu1.main-sidebar-hide .emp-info {
+    display: none;
+}
+
+.main-sidebar-hide .main-sidebar-body,
+.hover-submenu.main-sidebar-hide .side-menu .main-sidebar-body,
+.hover-submenu1.main-sidebar-hide .main-sidebar-body {
+    height: calc(100vh - 150px);
+}
+
+
+
+.main-sidebar-open.main-sidebar-hide .emp-info,
+.closed-leftmenu.main-sidebar-hide .emp-info,
+.closed-leftmenu.main-sidebar-open.main-sidebar-hide .emp-info,
+.icontext-menu.main-sidebar-hide .emp-info,
+.icontext-menu.main-sidebar-open.main-sidebar-hide .emp-info,
+.hover-submenu.main-sidebar-hide .emp-info,
+.hover-submenu.main-sidebar-open.main-sidebar-hide .emp-info,
+.hover-submenu1.main-sidebar-open.main-sidebar-hide .emp-info,
+.hover-submenu1.main-sidebar-hide.main-sidebar-open .submenu-style .nav-sub-link.sub-with-sub .emp-info {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .user{
+        margin-top: calc(100px - 65px);
+    }
+}
+.sidemenu-logo{
+    z-index: 999 !important;
+    height: 70px;
+}
+.activeLi{
+    font-size: 13px;
+    border-radius: 3px;
+    background: #000000;
+    color: #FFFFFF;
+    a .sidemenu-label{
+        color:#FFFFFF
+    }
+
+}
+.inActiveLi{
+    font-size: 13px;
+    a .sidemenu-label{
+        color: #9F9F9F;
+    }
+
+}
+.menu-nav > li {
+    border-radius: 3px;
+    padding: 4px;
+
+}
+.side-menu i.angle {
+    top: 8px !important;
+}
+.main-sidebar-body li.active .sidemenu-label{
+    color: black;
+}
+.rtl .main-sidebar-body li.nav-item.active .nav-link > i {
+    color: black !important;
+}
+.nav-link .with-sub,.nav-item{
+    cursor: pointer !important;
+}
+.sidemenu-label{
+    padding: 0px 8px !important;
+}
+.menu-nav > li,.menu-nav .nav-sub > li {
+    cursor: pointer !important;
+}
+.with-sub .shape2{
+    background-color: #3a3a3a;
+    width: 10px;
+    height: 20px;
+}
+
+
+
+

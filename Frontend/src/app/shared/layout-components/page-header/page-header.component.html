@@ -1,0 +1,11 @@
+<!-- Page Header -->
+<div class="page-header noPrint" [ngClass]="{ 'pt-60': scrolled }">
+    <div>
+        <h3 class="text-black tx-24 mg-b-5">{{title}}</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item text-black"  *ngFor="let item of items">{{item}}</li>
+            <li class="breadcrumb-item text-black" aria-current="page">{{active_item}}</li>
+        </ol>
+    </div>
+</div>
+<!-- End Page Header -->
