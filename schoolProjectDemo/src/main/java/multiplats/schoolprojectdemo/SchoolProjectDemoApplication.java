@@ -22,7 +22,7 @@ public class SchoolProjectDemoApplication {
         corsConfiguration.setAllowCredentials(true);
 
 
-        corsConfiguration.setAllowedOrigins(Arrays.asList("https://oprup-website.vercel.app","https://demo2.oprup.net","http://localhost:4200","http://localhost:61802"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://localhost:61802"));
 
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept","Authorization", "Origin, Accept", "X-Requested-With",
